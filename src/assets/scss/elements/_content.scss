@@ -1,0 +1,75 @@
+// Imports
+@use "declarations" as *;
+@use "inputs" as *;
+
+// Form
+form {
+  border: $border-w;
+  width: 610px;
+  padding: 10px;
+  background-color: #222;
+  border-radius: 10px;
+  margin: 20px auto 30px;
+  text-align: center;
+  div:first-child {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 15px;
+  }
+  input[type="color"] {
+    width: 35px;
+    height: 35px;
+    background-color: transparent;
+    border: none;
+    cursor: pointer;
+    &::-moz-color-swatch,
+    &::-webkit-color-swatch {
+      border: none;
+      border-radius: 5px;
+    }
+  }
+  input[type="text"] {
+    width: 130px;
+    padding: 5px;
+    background-color: $dark-1;
+    color: #dadada;
+    font-size: 0.9rem;
+    font-weight: bold;
+    outline: none;
+    border: 1px solid rgba(#fff, 0.4);
+    border-radius: 5px;
+    &:focus {
+      border-color: #ddd;
+    }
+  }
+  input[type="range"] {
+    @extend %rangeInputStyles;
+    width: 180px;
+  }
+  label[for="amount"] {
+    width: 100px;
+  }
+  button {
+    outline: none;
+    padding: 5px 15px;
+    background-color: $dark-1;
+    border: 2px solid rgba($primary, 0.6);
+    border-radius: 5px;
+    color: #eee;
+    font-weight: bold;
+    cursor: pointer;
+    transition: 0.2s;
+    &:hover {
+      color: $primary;
+      border-color: $primary;
+    }
+  }
+}
+
+// Color list
+.color-list {
+  .box {
+    height: 50px;
+  }
+}
