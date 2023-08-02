@@ -1,35 +1,131 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import { useState, useEffect } from "react";
+import Values from "values.js";
+
+import rgbToHex from "./utils";
 
 function App() {
-  const [count, setCount] = useState(0)
+  const defaultColor = "#ffa500";
+  const defaultValues = new Values(defaultColor).all(10);
+
+  const [color, setColor] = useState(defaultColor);
+  const [amount, setAmount] = useState(10);
+  const [list, setList] = useState(defaultValues);
+
+  const [alert, setAlert] = useState(false);
+
+  function handleSubmit(e) {
+    e.preventDefault();
+
+    try {
+      let newList = new Values(color).all(parseInt(amount));
+      setList(newList);
+    } catch (err) {
+      setWrongVal(true);
+      console.log(wrongVal);
+      console.log(err);
+    }
+  }
+
+  return (
+    <div className="container">
+      <h1>Tints and Shades</h1>
+      <Form
+        color={color}
+        setColor={setColor}
+        amount={amount}
+        setAmount={setAmount}
+        handleSubmit={handleSubmit}
+      />
+      <ColorList list={list} alert={alert} setAlert={setAlert} />
+      {alert && <Popup />}
+    </div>
+  );
+}
+
+function Form(props) {
+  const { color, setColor, amount, setAmount, handleSubmit, wrongVal } = props;
 
   return (
     <>
-      <div>
-        <a href="https://vitejs.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.jsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
+      <form onSubmit={handleSubmit}>
+        <div>
+          <label htmlFor="color">Pick a color:</label>
+          <input type="color" name="color" value={color} onChange={(e) => setColor(e.target.value)} />
+          <input type="text" name="color" value={color} onChange={(e) => setColor(e.target.value)} />
+          <input
+            type="range"
+            name="amount"
+            min={1}
+            max={50}
+            // step={5}
+            value={amount}
+            onChange={(e) => setAmount(e.target.value)}
+          />
+          <label htmlFor="amount">{amount}% variation</label>
+        </div>
+        <button type="submit">Generate</button>
+      </form>
     </>
-  )
+  );
 }
 
-export default App
+function ColorList({ list, alert, setAlert }) {
+  return (
+    <>
+      <ul className="color-list">
+        {list.map((color, i) => (
+          <Color key={i} color={color} alert={alert} setAlert={setAlert} />
+        ))}
+      </ul>
+    </>
+  );
+}
+
+function Color({ color, alert, setAlert }) {
+  // const [alert, setAlert] = useState(false);
+
+  const { rgb, type, weight } = color;
+
+  let rgbColor = rgb.toString();
+  let hexColor = rgbToHex(...rgb);
+
+  let boxStyles = { backgroundColor: `rgb(${rgbColor})` };
+
+  function copyColor(value) {
+    navigator.clipboard.writeText(value);
+    setAlert(true);
+  }
+
+  useEffect(() => {
+    const alertTimer = setTimeout(() => {
+      setAlert(false);
+    }, 3000);
+    return () => clearTimeout(alertTimer);
+  }, [alert]);
+
+  return (
+    <>
+      <li>
+        <div className="box" style={boxStyles}>
+          <span>{weight}%</span>
+        </div>
+        <div className="info">
+          <p onClick={() => copyColor(`rgb(${rgbColor})`)}>rgb({rgbColor})</p>
+          <p onClick={() => copyColor(hexColor)}>{hexColor} </p>
+        </div>
+      </li>
+    </>
+  );
+}
+
+function Popup() {
+  return (
+    <>
+      <div className="popup">
+        <p>Color copied</p>
+      </div>
+    </>
+  );
+}
+
+export default App;

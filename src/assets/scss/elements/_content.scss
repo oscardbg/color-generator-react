@@ -1,0 +1,121 @@
+// Imports
+@use "declarations" as *;
+@use "inputs" as *;
+
+// Form
+form {
+  border: $border-w;
+  width: 610px;
+  padding: 10px;
+  background-color: #222;
+  border-radius: 10px;
+  margin: 20px auto 30px;
+  text-align: center;
+  div {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 15px;
+  }
+  input[type="color"] {
+    width: 35px;
+    height: 35px;
+    background-color: transparent;
+    border: none;
+    cursor: pointer;
+    &::-moz-color-swatch,
+    &::-webkit-color-swatch {
+      border: none;
+      border-radius: 5px;
+    }
+  }
+  input.fail {
+    border-color: orangered;
+    color: red;
+  }
+  input[type="text"] {
+    width: 130px;
+    padding: 5px;
+    background-color: $dark-1;
+    color: #dadada;
+    font-size: 0.9rem;
+    font-weight: bold;
+    outline: none;
+    border: 1px solid rgba(#fff, 0.4);
+    border-radius: 5px;
+    &:focus {
+      border-color: #ddd;
+    }
+  }
+  input[type="range"] {
+    @extend %rangeInputStyles;
+    width: 180px;
+  }
+  label[for="amount"] {
+    width: 100px;
+  }
+  button {
+    outline: none;
+    padding: 5px 15px;
+    background-color: $dark-1;
+    border: 2px solid rgba($primary, 0.6);
+    border-radius: 5px;
+    color: #eee;
+    font-weight: bold;
+    cursor: pointer;
+    transition: 0.2s;
+    &:hover {
+      color: $primary;
+      border-color: $primary;
+    }
+  }
+}
+
+// Color list
+.color-list {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 10px;
+  margin-bottom: 40px;
+  .box {
+    height: 110px;
+    // position: relative;
+    span {
+      background-color: #111;
+      color: #eee;
+      font-size: 0.8rem;
+      padding: 3px 5px;
+      display: inline-block;
+      margin: 5px;
+    }
+  }
+  .info {
+    font-size: 0.8rem;
+    text-align: center;
+    background-color: #1b1b1b;
+    p {
+      border: $border-w;
+      padding: 3px 0;
+      cursor: pointer;
+      &:hover {
+        background-color: #333;
+        border-color: rgba(#fff, 0.4);
+      }
+    }
+  }
+}
+
+.popup {
+  width: 220px;
+  border: $border-w1;
+  border-radius: 5px;
+  padding: 10px;
+  position: fixed;
+  bottom: 20px;
+  right: 30px;
+  background-color: #222;
+  text-align: center;
+  font-size: 0.8rem;
+  font-weight: bold;
+  animation: slidePopup 0.3s;
+}

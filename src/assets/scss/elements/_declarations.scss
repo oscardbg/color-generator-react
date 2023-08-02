@@ -1,6 +1,29 @@
 // Variables
-$dark-1:#0d1117;
-$dark-2:#24292f;
-$gray-light:#dfe7ec;
+$dark-1: #0d1117;
+$dark-2: #24292f;
+$gray-light: #dfe7ec;
 $primary: #bb86fc;
 $secondary: #03dac5;
+
+$border-w: 1px solid rgba(#fff, 0.1);
+$border-w1: 1px solid rgba(#fff, 0.2);
+
+// Animation
+@keyframes slidePopup {
+  from {
+    visibility: hidden;
+    opacity: 0;
+    right: 0px;
+  }
+  to {
+    visibility: visible;
+    opacity: 1;
+  }
+}
+
+// Mixins
+@mixin responsify($screen) {
+  @media screen and (max-width: $screen) {
+    @content;
+  }
+}
