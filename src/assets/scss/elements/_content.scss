@@ -29,6 +29,10 @@ form {
       border-radius: 5px;
     }
   }
+  input.fail {
+    border-color: orangered;
+    color: red;
+  }
   input[type="text"] {
     width: 130px;
     padding: 5px;
@@ -73,9 +77,6 @@ form {
   grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
   gap: 10px;
   margin-bottom: 40px;
-  li {
-    // border: $border-w;
-  }
   .box {
     height: 110px;
     // position: relative;

@@ -19,9 +19,9 @@ function App() {
     try {
       let newList = new Values(color).all(parseInt(amount));
       setList(newList);
-      // console.log(amount);
-      // console.log(newList);
     } catch (err) {
+      setWrongVal(true);
+      console.log(wrongVal);
       console.log(err);
     }
   }
@@ -42,7 +42,9 @@ function App() {
   );
 }
 
-function Form({ color, setColor, amount, setAmount, handleSubmit }) {
+function Form(props) {
+  const { color, setColor, amount, setAmount, handleSubmit, wrongVal } = props;
+
   return (
     <>
       <form onSubmit={handleSubmit}>
