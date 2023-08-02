@@ -11,14 +11,16 @@ function App() {
   const [amount, setAmount] = useState(10);
   const [list, setList] = useState(defaultValues);
 
+  const [alert, setAlert] = useState(false);
+
   function handleSubmit(e) {
     e.preventDefault();
 
     try {
       let newList = new Values(color).all(parseInt(amount));
       setList(newList);
-      console.log(amount);
-      console.log(newList);
+      // console.log(amount);
+      // console.log(newList);
     } catch (err) {
       console.log(err);
     }
@@ -34,7 +36,8 @@ function App() {
         setAmount={setAmount}
         handleSubmit={handleSubmit}
       />
-      <ColorList list={list} />
+      <ColorList list={list} alert={alert} setAlert={setAlert} />
+      {alert && <Popup />}
     </div>
   );
 }
@@ -64,25 +67,39 @@ function Form({ color, setColor, amount, setAmount, handleSubmit }) {
   );
 }
 
-function ColorList({ list }) {
+function ColorList({ list, alert, setAlert }) {
   return (
     <>
       <ul className="color-list">
         {list.map((color, i) => (
-          <Color key={i} color={color} />
+          <Color key={i} color={color} alert={alert} setAlert={setAlert} />
         ))}
       </ul>
     </>
   );
 }
 
-function Color({ color }) {
+function Color({ color, alert, setAlert }) {
+  // const [alert, setAlert] = useState(false);
+
   const { rgb, type, weight } = color;
 
   let rgbColor = rgb.toString();
   let hexColor = rgbToHex(...rgb);
 
   let boxStyles = { backgroundColor: `rgb(${rgbColor})` };
+
+  function copyColor(value) {
+    navigator.clipboard.writeText(value);
+    setAlert(true);
+  }
+
+  useEffect(() => {
+    const alertTimer = setTimeout(() => {
+      setAlert(false);
+    }, 3000);
+    return () => clearTimeout(alertTimer);
+  }, [alert]);
 
   return (
     <>
@@ -91,10 +108,20 @@ function Color({ color }) {
           <span>{weight}%</span>
         </div>
         <div className="info">
-          <p>rgb({rgbColor})</p>
-          <p>{hexColor} </p>
+          <p onClick={() => copyColor(`rgb(${rgbColor})`)}>rgb({rgbColor})</p>
+          <p onClick={() => copyColor(hexColor)}>{hexColor} </p>
         </div>
       </li>
+    </>
+  );
+}
+
+function Popup() {
+  return (
+    <>
+      <div className="popup">
+        <p>Color copied</p>
+      </div>
     </>
   );
 }

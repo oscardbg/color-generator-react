@@ -72,32 +72,49 @@ form {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
   gap: 10px;
+  margin-bottom: 40px;
   li {
-    border: $border-w;
+    // border: $border-w;
   }
   .box {
-    height: 100px;
+    height: 110px;
     // position: relative;
     span {
       background-color: #111;
       color: #eee;
       font-size: 0.8rem;
-      // position: absolute;
-      // top: 50%;
-      // left: 50%;
-      // transform: translate(-50%, -50%);
       padding: 3px 5px;
       display: inline-block;
       margin: 5px;
     }
   }
   .info {
-    font-size: 0.9rem;
+    font-size: 0.8rem;
     text-align: center;
     background-color: #1b1b1b;
     p {
-      border-top: $border-w;
+      border: $border-w;
       padding: 3px 0;
+      cursor: pointer;
+      &:hover {
+        background-color: #333;
+        border-color: rgba(#fff, 0.4);
+      }
     }
   }
+}
+
+.popup {
+  width: 220px;
+  border: $border-w1;
+  border-radius: 5px;
+  padding: 10px;
+  position: fixed;
+  bottom: 20px;
+  right: 30px;
+  background-color: #222;
+  text-align: center;
+  font-size: 0.8rem;
+  font-weight: bold;
+  animation: slidePopup 0.3s;
 }
