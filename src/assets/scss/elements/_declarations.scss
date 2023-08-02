@@ -20,3 +20,10 @@ $border-w1: 1px solid rgba(#fff, 0.2);
     opacity: 1;
   }
 }
+
+// Mixins
+@mixin responsify($screen) {
+  @media screen and (max-width: $screen) {
+    @content;
+  }
+}

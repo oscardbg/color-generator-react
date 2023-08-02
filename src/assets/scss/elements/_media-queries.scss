@@ -1,0 +1,30 @@
+// Imports
+@use "declarations" as *;
+
+// Form
+@include responsify(650px) {
+  form {
+    width: 90%;
+    div {
+      flex-wrap: wrap;
+    }
+    label[for="color"] {
+      width: 100%;
+    }
+  }
+  .popup {
+    width: 40%;
+  }
+}
+
+@include responsify(550px) {
+  form {
+    div {
+      flex-direction: column;
+      gap: 5px;
+    }
+    input {
+      margin: 0;
+    }
+  }
+}
