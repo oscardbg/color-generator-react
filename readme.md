@@ -5,6 +5,11 @@
 React application that allows the user to generate tints and shades of the color written or selected from the color picker.
 The form contains a range input element that goes from 1 to 50 and it refers to the steps of the weight of the colors, i.e. 1% value will generate 100 tints and 100 shades, 20% 5 tints and 5 shades, and so on.
 
+## Netlify deploy
+[Color generator](https://color-generator-3dbe2e.netlify.app)
+
+https://color-generator-3dbe2e.netlify.app
+
 ## Features
 
 - Write a hex color value
